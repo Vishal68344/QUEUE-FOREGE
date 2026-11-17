@@ -1,4 +1,4 @@
-import { Schema, model, models, type HydratedDocument, type Types } from "mongoose";
+import { Schema, model, models, type HydratedDocument, type Types, type Model } from "mongoose";
 import type { JobType } from "../config/constants";
 
 export const JOB_STATUSES = ["waiting", "active", "completed", "failed", "delayed", "cancelled"] as const;
@@ -50,4 +50,4 @@ jobSchema.index({ userId: 1, createdAt: -1 });
 jobSchema.index({ queueName: 1, createdAt: -1 });
 
 export type JobDocument = HydratedDocument<IJob>;
-export const Job = (models.Job as ReturnType<typeof model<IJob>>) || model<IJob>("Job", jobSchema);
+export const Job: Model<IJob> = (models.Job as Model<IJob> | undefined) ?? model<IJob>("Job", jobSchema);

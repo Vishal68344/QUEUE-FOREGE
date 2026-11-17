@@ -65,17 +65,17 @@ router.post("/", validateBody(createJobSchema), asyncHandler(async (req, res) =>
 }));
 
 router.get("/:id", validateParams(jobIdSchema), asyncHandler(async (req, res) => {
-  const job = await jobService.getJobById(req.authUser!.id, req.params.id);
+  const job = await jobService.getJobById(req.authUser!.id, (req.params.id as string));
   return success(res, job);
 }));
 
 router.post("/:id/retry", validateParams(jobIdSchema), asyncHandler(async (req, res) => {
-  const job = await jobService.retryJob(req.authUser!.id, req.params.id);
+  const job = await jobService.retryJob(req.authUser!.id, (req.params.id as string));
   return success(res, job, 202);
 }));
 
 router.post("/:id/cancel", validateParams(jobIdSchema), asyncHandler(async (req, res) => {
-  const job = await jobService.cancelJob(req.authUser!.id, req.params.id);
+  const job = await jobService.cancelJob(req.authUser!.id, (req.params.id as string));
   return success(res, job);
 }));
 

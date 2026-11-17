@@ -1,4 +1,4 @@
-import { Schema, model, models, type HydratedDocument } from "mongoose";
+import { Schema, model, models, type HydratedDocument, type Model } from "mongoose";
 
 export interface IUser {
   email: string;
@@ -16,4 +16,4 @@ const userSchema = new Schema<IUser>(
 );
 
 export type UserDocument = HydratedDocument<IUser>;
-export const User = (models.User as ReturnType<typeof model<IUser>>) || model<IUser>("User", userSchema);
+export const User: Model<IUser> = (models.User as Model<IUser> | undefined) ?? model<IUser>("User", userSchema);
