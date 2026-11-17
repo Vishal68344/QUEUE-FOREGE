@@ -1,4 +1,4 @@
-import { Schema, model, models, type HydratedDocument, type Types } from "mongoose";
+import { Schema, model, models, type HydratedDocument, type Model, type Types } from "mongoose";
 
 export type JobExecutionEvent = "created" | "started" | "retrying" | "completed" | "failed" | "cancelled" | "dead-lettered";
 
@@ -31,4 +31,4 @@ const jobExecutionHistorySchema = new Schema<IJobExecutionHistory>(
 jobExecutionHistorySchema.index({ jobId: 1, createdAt: -1 });
 
 export type JobExecutionHistoryDocument = HydratedDocument<IJobExecutionHistory>;
-export const JobExecutionHistory = (models.JobExecutionHistory as ReturnType<typeof model<IJobExecutionHistory>>) || model<IJobExecutionHistory>("JobExecutionHistory", jobExecutionHistorySchema);
+export const JobExecutionHistory: Model<IJobExecutionHistory> = (models.JobExecutionHistory as Model<IJobExecutionHistory> | undefined) ?? model<IJobExecutionHistory>("JobExecutionHistory", jobExecutionHistorySchema);

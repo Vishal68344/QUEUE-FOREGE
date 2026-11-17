@@ -1,4 +1,4 @@
-import { Schema, model, models, type HydratedDocument } from "mongoose";
+import { Schema, model, models, type HydratedDocument, type Model } from "mongoose";
 
 export type WorkerStatus = "online" | "offline" | "degraded";
 
@@ -30,4 +30,4 @@ const workerSchema = new Schema<IWorker>(
 );
 
 export type WorkerDocument = HydratedDocument<IWorker>;
-export const Worker = (models.Worker as ReturnType<typeof model<IWorker>>) || model<IWorker>("Worker", workerSchema);
+export const Worker: Model<IWorker> = (models.Worker as Model<IWorker> | undefined) ?? model<IWorker>("Worker", workerSchema);

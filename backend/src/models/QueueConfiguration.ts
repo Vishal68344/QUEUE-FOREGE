@@ -1,4 +1,4 @@
-import { Schema, model, models, type HydratedDocument } from "mongoose";
+import { Schema, model, models, type HydratedDocument, type Model } from "mongoose";
 
 export interface IQueueConfiguration {
   name: string;
@@ -20,4 +20,4 @@ const queueConfigurationSchema = new Schema<IQueueConfiguration>(
 );
 
 export type QueueConfigurationDocument = HydratedDocument<IQueueConfiguration>;
-export const QueueConfiguration = (models.QueueConfiguration as ReturnType<typeof model<IQueueConfiguration>>) || model<IQueueConfiguration>("QueueConfiguration", queueConfigurationSchema);
+export const QueueConfiguration: Model<IQueueConfiguration> = (models.QueueConfiguration as Model<IQueueConfiguration> | undefined) ?? model<IQueueConfiguration>("QueueConfiguration", queueConfigurationSchema);

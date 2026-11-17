@@ -13,11 +13,11 @@ const queueNameSchema = z.object({ name: z.string().min(1).max(64).regex(/^[a-z0
 router.get("/", asyncHandler(async (_req, res) => success(res, await queueService.listQueues())));
 
 router.post("/:name/pause", validateParams(queueNameSchema), asyncHandler(async (req, res) => {
-  return success(res, await queueService.pauseQueue(req.params.name));
+  return success(res, await queueService.pauseQueue((req.params.name as string)));
 }));
 
 router.post("/:name/resume", validateParams(queueNameSchema), asyncHandler(async (req, res) => {
-  return success(res, await queueService.resumeQueue(req.params.name));
+  return success(res, await queueService.resumeQueue((req.params.name as string)));
 }));
 
 export default router;
