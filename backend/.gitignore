@@ -1,0 +1,13 @@
+<<<<<<< HEAD
+node_modules
+dist
+.env
+=======
+node_modules/
+dist/
+coverage/
+.env
+.env.*
+!.env.example
+*.log
+>>>>>>> origin/feature/backend
